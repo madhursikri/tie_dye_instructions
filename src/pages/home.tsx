@@ -12,7 +12,10 @@ import {
 } from "@/components/ui/select";
 import heroImage from "@/assets/images/tie-dye-hero.png";
 
-type Language = "en" | "es" | "fr" | "de" | "hi" | "pa" | "it" | "ur";
+const LANGUAGES = ["en", "es", "fr", "de", "hi", "pa", "it", "ur"] as const;
+type Language = (typeof LANGUAGES)[number];
+
+const RTL_LANGUAGES: ReadonlySet<Language> = new Set(["ur"]);
 
 interface Step {
   title: string;
@@ -56,17 +59,17 @@ const translations: Record<Language, Translation> = {
     footer: "Handcrafted with love. Treat it with care.",
   },
   es: {
-    title: "Guia de Cuidado Tie-Dye",
-    subtitle: "Manten tus colores vibrantes para siempre",
+    title: "Guía de Cuidado Tie-Dye",
+    subtitle: "Mantén tus colores vibrantes para siempre",
     steps: [
       {
-        title: "Enjuague Frio",
-        desc: "Enjuaga con agua fria hasta que el agua salga clara.",
+        title: "Enjuague Frío",
+        desc: "Enjuaga con agua fría hasta que el agua salga clara.",
         icon: Droplets,
       },
       {
         title: "Lavar Solo",
-        desc: "Para el primer lavado, lavalo solo para evitar que se destina.",
+        desc: "Para el primer lavado, lávalo solo para evitar que se destiña.",
         icon: ThermometerSnowflake,
       },
       {
@@ -75,34 +78,34 @@ const translations: Record<Language, Translation> = {
         icon: Wind,
       },
       {
-        title: "Proteccion de Color",
-        desc: "Usa detergente suave sin lejia para futuros lavados.",
+        title: "Protección de Color",
+        desc: "Usa detergente suave sin lejía para futuros lavados.",
         icon: Sparkles,
       },
     ],
-    footer: "Hecho a mano con amor. Tratalo con cuidado.",
+    footer: "Hecho a mano con amor. Trátalo con cuidado.",
   },
   fr: {
     title: "Guide d'Entretien Tie-Dye",
-    subtitle: "Gardez vos couleurs eclatantes pour toujours",
+    subtitle: "Gardez vos couleurs éclatantes pour toujours",
     steps: [
       {
-        title: "Rincage a Froid",
-        desc: "Rincez a l'eau froide jusqu'a ce que l'eau soit claire.",
+        title: "Rinçage à Froid",
+        desc: "Rincez à l'eau froide jusqu'à ce que l'eau soit claire.",
         icon: Droplets,
       },
       {
         title: "Laver Seul",
-        desc: "Pour le premier lavage, lavez-le seul pour eviter les degorgements.",
+        desc: "Pour le premier lavage, lavez-le seul pour éviter les dégorgements.",
         icon: ThermometerSnowflake,
       },
       {
-        title: "Sechage a l'Air",
-        desc: "Evitez la lumiere directe du soleil. Sechez a plat pour preserver la forme.",
+        title: "Séchage à l'Air",
+        desc: "Évitez la lumière directe du soleil. Séchez à plat pour préserver la forme.",
         icon: Wind,
       },
       {
-        title: "Couleurs Preservees",
+        title: "Couleurs Préservées",
         desc: "Utilisez une lessive douce sans javel pour les prochains lavages.",
         icon: Sparkles,
       },
@@ -111,84 +114,84 @@ const translations: Record<Language, Translation> = {
   },
   de: {
     title: "Batik Pflegeanleitung",
-    subtitle: "Halten Sie Ihre Farben fur immer lebendig",
+    subtitle: "Halten Sie Ihre Farben für immer lebendig",
     steps: [
       {
-        title: "Kalt Spulen",
-        desc: "Unter kaltem flieendem Wasser spulen, bis das Wasser klar ist.",
+        title: "Kalt Spülen",
+        desc: "Unter kaltem fließendem Wasser spülen, bis das Wasser klar ist.",
         icon: Droplets,
       },
       {
         title: "Einzeln Waschen",
-        desc: "Bei der ersten Wasche einzeln waschen, um Abfarben zu vermeiden.",
+        desc: "Bei der ersten Wäsche einzeln waschen, um Abfärben zu vermeiden.",
         icon: ThermometerSnowflake,
       },
       {
         title: "Lufttrocknen",
-        desc: "Direktes Sonnenlicht vermeiden. Liegend trocknen fur beste Form.",
+        desc: "Direktes Sonnenlicht vermeiden. Liegend trocknen für beste Form.",
         icon: Wind,
       },
       {
         title: "Farbschutz",
-        desc: "Verwenden Sie fur zukunftige Waschen mildes, bleichmittelfreies Waschmittel.",
+        desc: "Verwenden Sie für zukünftige Wäschen mildes, bleichmittelfreies Waschmittel.",
         icon: Sparkles,
       },
     ],
     footer: "Mit Liebe handgefertigt. Mit Sorgfalt behandeln.",
   },
   hi: {
-    title: "Tie-Dye Dekhbhal Margdarshika",
-    subtitle: "Apne rango ko hamesha ke liye jeevant rakhen",
+    title: "टाई-डाई देखभाल मार्गदर्शिका",
+    subtitle: "अपने रंगों को हमेशा के लिए जीवंत रखें",
     steps: [
       {
-        title: "Thande Pani Se Dhoen",
-        desc: "Thande behte pani ke niche tab tak dhoen jab tak pani saaf na ho jaye.",
+        title: "ठंडे पानी से धोएं",
+        desc: "ठंडे बहते पानी के नीचे तब तक धोएं जब तक पानी साफ न हो जाए।",
         icon: Droplets,
       },
       {
-        title: "Akele Dhoen",
-        desc: "Pehli dhulai ke liye ise alag rakhen taki rang na phale.",
+        title: "अकेले धोएं",
+        desc: "पहली धुलाई के लिए इसे अलग रखें ताकि रंग न फैले।",
         icon: ThermometerSnowflake,
       },
       {
-        title: "Hawa Mein Sukhaen",
-        desc: "Seedhi dhoop se bachayen. Behtar aakar ke liye ise samatal sukhaen.",
+        title: "हवा में सुखाएं",
+        desc: "सीधी धूप से बचाएं। बेहतर आकार के लिए इसे समतल सुखाएं।",
         icon: Wind,
       },
       {
-        title: "Rang Surakshit",
-        desc: "Bhavishya ki dhulai ke liye halka, bleach-mukt detergent istemal karen.",
+        title: "रंग सुरक्षित",
+        desc: "भविष्य की धुलाई के लिए हल्का, ब्लीच-मुक्त डिटर्जेंट इस्तेमाल करें।",
         icon: Sparkles,
       },
     ],
-    footer: "Pyar se hath se banaya gaya. Ise saavdhani se sambhalen.",
+    footer: "प्यार से हाथ से बनाया गया। इसे सावधानी से संभालें।",
   },
   pa: {
-    title: "Tie-Dye Dekhbhaal Guide",
-    subtitle: "Apne ranga nu hamesha layi jeevant rakho",
+    title: "ਟਾਈ-ਡਾਈ ਦੇਖਭਾਲ ਗਾਈਡ",
+    subtitle: "ਆਪਣੇ ਰੰਗਾਂ ਨੂੰ ਹਮੇਸ਼ਾ ਲਈ ਜੀਵੰਤ ਰੱਖੋ",
     steps: [
       {
-        title: "Thande Pani Naal Dho Vo",
-        desc: "Thande vagde pani de hethan udon tak dho vo jadon tak pani saaf na ho jave.",
+        title: "ਠੰਡੇ ਪਾਣੀ ਨਾਲ ਧੋਵੋ",
+        desc: "ਠੰਡੇ ਵਗਦੇ ਪਾਣੀ ਦੇ ਹੇਠਾਂ ਉਦੋਂ ਤੱਕ ਧੋਵੋ ਜਦੋਂ ਤੱਕ ਪਾਣੀ ਸਾਫ਼ ਨਾ ਹੋ ਜਾਵੇ।",
         icon: Droplets,
       },
       {
-        title: "Ikalle Dho Vo",
-        desc: "Pehli vaar dhon vele, ranga nu milan ton rokan layi isnu ikalla rakho.",
+        title: "ਇਕੱਲੇ ਧੋਵੋ",
+        desc: "ਪਹਿਲੀ ਵਾਰ ਧੋਣ ਵੇਲੇ, ਰੰਗਾਂ ਨੂੰ ਮਿਲਣ ਤੋਂ ਰੋਕਣ ਲਈ ਇਸਨੂੰ ਇਕੱਲਾ ਰੱਖੋ।",
         icon: ThermometerSnowflake,
       },
       {
-        title: "Hawa Vich Sukhao",
-        desc: "Sidhi dhoop ton bacho. Behtar aakar layi isnu padhar sukhao.",
+        title: "ਹਵਾ ਵਿੱਚ ਸੁਕਾਓ",
+        desc: "ਸਿੱਧੀ ਧੁੱਪ ਤੋਂ ਬਚੋ। ਬਿਹਤਰ ਆਕਾਰ ਲਈ ਇਸਨੂੰ ਸਮਤਲ ਸੁਕਾਓ।",
         icon: Wind,
       },
       {
-        title: "Rang Surakhit",
-        desc: "Bhavikh diyan dhulayan layi halka, bleach-mukt detergent varto.",
+        title: "ਰੰਗ ਸੁਰੱਖਿਅਤ",
+        desc: "ਭਵਿੱਖ ਦੀਆਂ ਧੁਲਾਈਆਂ ਲਈ ਹਲਕਾ, ਬਲੀਚ-ਮੁਕਤ ਡਿਟਰਜੈਂਟ ਵਰਤੋ।",
         icon: Sparkles,
       },
     ],
-    footer: "Pyar nal hathi banaya giya. Isdi dekhbhaal karo.",
+    footer: "ਪਿਆਰ ਨਾਲ ਹੱਥੀਂ ਬਣਾਇਆ ਗਿਆ। ਇਸਦੀ ਦੇਖਭਾਲ ਕਰੋ।",
   },
   it: {
     title: "Guida alla Cura Tie-Dye",
@@ -196,7 +199,7 @@ const translations: Record<Language, Translation> = {
     steps: [
       {
         title: "Risciacquo Freddo",
-        desc: "Risciacquare sotto acqua fredda corrente finche l'acqua non e limpida.",
+        desc: "Risciacquare sotto acqua fredda corrente finché l'acqua non è limpida.",
         icon: Droplets,
       },
       {
@@ -218,59 +221,61 @@ const translations: Record<Language, Translation> = {
     footer: "Fatto a mano con amore. Trattalo con cura.",
   },
   ur: {
-    title: "Tie-Dye Care Guide (Urdu)",
-    subtitle: "Apne rangon ko hamesha roshan rakhen",
+    title: "ٹائی ڈائی دیکھ بھال گائیڈ",
+    subtitle: "اپنے رنگوں کو ہمیشہ کے لیے روشن رکھیں",
     steps: [
       {
-        title: "Thande Pani Se Dhoyen",
-        desc: "Thande behte pani ke niche tab tak dhoyen jab tak pani saaf na ho jaye.",
+        title: "ٹھنڈے پانی سے دھوئیں",
+        desc: "ٹھنڈے بہتے پانی کے نیچے تب تک دھوئیں جب تک پانی صاف نہ ہو جائے۔",
         icon: Droplets,
       },
       {
-        title: "Akele Dhoyen",
-        desc: "Pehli baar dhone ke liye, rang milne se bachane ke liye ise alag rakhen.",
+        title: "اکیلے دھوئیں",
+        desc: "پہلی بار دھونے کے لیے، رنگ ملنے سے بچانے کے لیے اسے الگ رکھیں۔",
         icon: ThermometerSnowflake,
       },
       {
-        title: "Hawa Mein Sukhayen",
-        desc: "Seedhi dhoop se bachayen. Behtar shakal ke liye ise hamwar sukhayen.",
+        title: "ہوا میں سکھائیں",
+        desc: "براہ راست دھوپ سے بچائیں۔ بہتر شکل کے لیے اسے ہموار سطح پر سکھائیں۔",
         icon: Wind,
       },
       {
-        title: "Rang Mehfooz",
-        desc: "Mustaqbil mein dhone ke liye halka, bleach-free detergent istemal karen.",
+        title: "رنگ محفوظ",
+        desc: "مستقبل میں دھونے کے لیے ہلکا، بلیچ سے پاک ڈٹرجنٹ استعمال کریں۔",
         icon: Sparkles,
       },
     ],
-    footer: "Mohabbat se hath se banaya gaya. Ise ehtiyat se istemal karen.",
+    footer: "محبت سے ہاتھ سے بنایا گیا۔ اسے احتیاط سے استعمال کریں۔",
   },
 };
 
 const languageNames: Record<Language, string> = {
   en: "English",
-  es: "Espanol",
-  fr: "Francais",
+  es: "Español",
+  fr: "Français",
   de: "Deutsch",
-  hi: "Hindi",
-  pa: "Punjabi",
+  hi: "हिंदी",
+  pa: "ਪੰਜਾਬੀ",
   it: "Italiano",
-  ur: "Urdu",
+  ur: "اردو",
 };
 
-const rtlLanguages: Language[] = ["ur"];
+function isLanguage(value: string): value is Language {
+  return (LANGUAGES as readonly string[]).includes(value);
+}
 
 export default function Home() {
   const [lang, setLang] = useState<Language>("en");
 
   useEffect(() => {
-    const browserLang = navigator.language.split("-")[0] as Language;
-    if (translations[browserLang]) {
+    const browserLang = navigator.language.split("-")[0];
+    if (isLanguage(browserLang)) {
       setLang(browserLang);
     }
   }, []);
 
   const t = translations[lang];
-  const isRTL = rtlLanguages.includes(lang);
+  const isRTL = RTL_LANGUAGES.has(lang);
 
   return (
     <div className="min-h-screen bg-background font-sans">
@@ -279,7 +284,7 @@ export default function Home() {
           <div className="font-serif text-2xl font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
             Patterson Elementary PTA
           </div>
-          <Select value={lang} onValueChange={(val) => setLang(val as Language)}>
+          <Select value={lang} onValueChange={(val) => isLanguage(val) && setLang(val)}>
             <SelectTrigger
               className="w-[180px] rounded-full border-primary/20 hover:border-primary/50 transition-colors"
               data-testid="select-language"
@@ -287,9 +292,9 @@ export default function Home() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {Object.entries(languageNames).map(([code, name]) => (
+              {LANGUAGES.map((code) => (
                 <SelectItem key={code} value={code} data-testid={`option-lang-${code}`}>
-                  {name}
+                  {languageNames[code]}
                 </SelectItem>
               ))}
             </SelectContent>
