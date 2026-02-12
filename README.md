@@ -1,33 +1,44 @@
-# Tie-Dye Instructions Project
+﻿# Tie-Dye Instructions Project
 
-This repository currently contains two UI implementations of the same tie-dye care guide:
+This project is now a plain static website:
 
-1. `index.html`: plain HTML/JS version.
-2. `src/pages/home.tsx`: React/TypeScript version.
+- `index.html`
+- `styles.css`
+- `script.js`
+- `public/` assets
 
-Both versions include the same translation content and language selector.
+## Run / Deploy
 
-## Adding a New Language
+No build step is required.
 
-Update both implementations so they stay in sync.
+1. Open `index.html` directly in a browser, or
+2. Host the folder on any static web server (GitHub Pages, Netlify, S3, etc.).
 
-### 1. Plain HTML/JS version (`index.html`)
+## Language Updates
 
-1. Add the new option in `<select id="lang-select">`.
-2. Add a new entry in `translations`.
-3. If the language is RTL, update:
-   - `const isRTL = ['ur', 'your_new_code'].includes(lang);`
+All language-related content lives in `script.js`.
 
-### 2. React/TypeScript version (`src/pages/home.tsx`)
+### Edit an existing language
 
-1. Extend the `Language` type with the new language code.
-2. Add translated content in `translations`.
-3. Add label in `languageNames`.
-4. If the language is RTL, include it in:
-   - `const isRTL = ['ur', 'your_new_code'].includes(lang);`
+1. Open `script.js`.
+2. Find the language code inside `translations` (for example `en`, `es`, `fr`).
+3. Update:
+   - `title`
+   - `subtitle`
+   - each item in `steps` (`title`, `desc`)
+   - `footer`
+4. Update the top eyebrow text for that language in `guideLabels`.
+5. Save and refresh `index.html`.
 
-## Testing
+### Add a new language (step-by-step)
 
-1. Open the app.
-2. Switch to the new language from the dropdown.
-3. Verify title, subtitle, steps, footer, and RTL layout (if applicable).
+1. Pick a language code (example: `pt`).
+2. Add the code to `LANGUAGES`.
+3. Add the display name in `languageNames`:
+   - Example: `pt: "Português"`
+4. Add the eyebrow label in `guideLabels`:
+   - Example: `pt: "Guia de Cuidados"`
+5. Add a full translation object in `translations` using the same shape as `en`:
+   - `title`, `subtitle`, `steps` (4 items), `footer`
+6. If the language is RTL, add its code to `RTL_LANGUAGES`.
+7. Save and refresh `index.html`.

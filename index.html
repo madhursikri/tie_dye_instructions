@@ -1,233 +1,44 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tie-Dye Care Guide</title>
+  <link rel="icon" type="image/png" href="public/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Bree+Serif&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#9333ea",
-            secondary: "#f3f4f6",
-            background: "#ffffff",
-            foreground: "#020617",
-            muted: "#f1f5f9",
-            "muted-foreground": "#64748b",
-          },
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', "sans-serif"],
-            serif: ['"Bree Serif"', "serif"],
-          },
-        },
-      },
-    };
-  </script>
-  <style>
-    .rtl {
-      direction: rtl;
-    }
-
-    .hero-gradient {
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 100%);
-    }
-
-    .card-hover:hover .icon-bg {
-      color: rgba(147, 51, 234, 0.2);
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-background text-foreground font-sans min-h-screen">
-  <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="font-serif text-2xl font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
-        Patterson Elementary PTA
-      </div>
-      <select id="lang-select" class="bg-white border border-primary/20 rounded-full px-4 py-2 outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm font-medium">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-        <option value="de">Deutsch</option>
-        <option value="hi">हिंदी</option>
-        <option value="pa">ਪੰਜਾਬੀ</option>
-        <option value="it">Italiano</option>
-        <option value="ur">اردو</option>
-      </select>
+<body>
+  <nav class="topbar">
+    <div class="container row">
+      <div class="brand">Patterson Elementary PTA</div>
+      <select id="lang-select" class="lang-select" aria-label="Select language"></select>
     </div>
   </nav>
 
-  <main id="content" class="pt-24 pb-12">
-    <div class="container mx-auto px-6 mb-16">
-      <div class="relative h-[300px] md:h-[450px] rounded-[2rem] overflow-hidden shadow-2xl">
-        <img
-          src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=2000"
-          alt="Tie-dye textures"
-          class="w-full h-full object-cover"
-        >
-        <div id="hero-text" class="absolute inset-0 hero-gradient flex flex-col justify-end p-8 md:p-12 items-start text-left">
-          <h1 id="title" class="font-serif text-4xl md:text-6xl text-white mb-4">Tie-Dye Care Guide</h1>
-          <p id="subtitle" class="text-white/90 text-lg md:text-xl font-medium">Keep your colors vibrant forever</p>
-        </div>
+  <main id="content" class="page" dir="ltr">
+    <section class="container hero">
+      <img src="public/images/tie-dye-hero.png" alt="Tie-dye textures" class="hero-image">
+      <div id="hero-text" class="hero-overlay text-left">
+        <p id="eyebrow" class="eyebrow">Care Guide</p>
+        <h1 id="title">Tie-Dye Care Guide</h1>
+        <p id="subtitle">Keep your colors vibrant forever</p>
       </div>
-    </div>
+    </section>
 
-    <div id="steps-grid" class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+    <section class="container steps-section">
+      <h2>Step-by-step care</h2>
+      <div id="steps-grid" class="steps-grid"></div>
+    </section>
 
-    <footer class="container mx-auto px-6 mt-20 text-center">
-      <div class="h-px w-24 bg-primary/20 mx-auto mb-8"></div>
-      <p id="footer-text" class="text-muted-foreground font-medium italic">Handcrafted with love. Treat it with care.</p>
+    <footer class="container footer">
+      <div class="line"></div>
+      <p id="footer-text">Handcrafted with love. Treat it with care.</p>
     </footer>
   </main>
 
-  <script>
-    const rtlLanguages = ["ur"];
-
-    const translations = {
-      en: {
-        title: "Tie-Dye Care Guide",
-        subtitle: "Keep your colors vibrant forever",
-        steps: [
-          { title: "Rinse Cold", desc: "Rinse under cold running water until the water runs clear.", icon: "M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" },
-          { title: "Wash Alone", desc: "For the first wash, keep it solo to avoid color bleeding.", icon: "M2 12h10m2 0h8M12 2v20M7 7l10 10M7 17L17 7" },
-          { title: "Air Dry", desc: "Avoid direct sunlight. Flat dry for the best shape preservation.", icon: "M17.7 7.7A7.1 7.1 0 1 1 5 8c0 .3 0 .6.1.9M18 21l-3-3m3 3l3-3m-3 3V15" },
-          { title: "Color Safe", desc: "Use mild, bleach-free detergent for future washes.", icon: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707" },
-        ],
-        footer: "Handcrafted with love. Treat it with care.",
-      },
-      es: {
-        title: "Guía de Cuidado Tie-Dye",
-        subtitle: "Mantén tus colores vibrantes para siempre",
-        steps: [
-          { title: "Enjuague Frío", desc: "Enjuaga con agua fría hasta que el agua salga clara.", icon: "M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" },
-          { title: "Lavar Solo", desc: "Para el primer lavado, lávalo solo para evitar que se destiña.", icon: "M2 12h10m2 0h8M12 2v20M7 7l10 10M7 17L17 7" },
-          { title: "Secar al Aire", desc: "Evita la luz solar directa. Seca en plano para preservar la forma.", icon: "M17.7 7.7A7.1 7.1 0 1 1 5 8c0 .3 0 .6.1.9M18 21l-3-3m3 3l3-3m-3 3V15" },
-          { title: "Protección de Color", desc: "Usa detergente suave sin lejía para futuros lavados.", icon: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707" },
-        ],
-        footer: "Hecho a mano con amor. Trátalo con cuidado.",
-      },
-      fr: {
-        title: "Guide d'Entretien Tie-Dye",
-        subtitle: "Gardez vos couleurs éclatantes pour toujours",
-        steps: [
-          { title: "Rinçage à Froid", desc: "Rincez à l'eau froide jusqu'à ce que l'eau soit claire.", icon: "M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" },
-          { title: "Laver Seul", desc: "Pour le premier lavage, lavez-le seul pour éviter les dégorgements.", icon: "M2 12h10m2 0h8M12 2v20M7 7l10 10M7 17L17 7" },
-          { title: "Séchage à l'Air", desc: "Évitez la lumière directe du soleil. Séchez à plat pour préserver la forme.", icon: "M17.7 7.7A7.1 7.1 0 1 1 5 8c0 .3 0 .6.1.9M18 21l-3-3m3 3l3-3m-3 3V15" },
-          { title: "Couleurs Préservées", desc: "Utilisez une lessive douce sans javel pour les prochains lavages.", icon: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707" },
-        ],
-        footer: "Fait main avec amour. Traitez-le avec soin.",
-      },
-      de: {
-        title: "Batik Pflegeanleitung",
-        subtitle: "Halten Sie Ihre Farben für immer lebendig",
-        steps: [
-          { title: "Kalt Spülen", desc: "Unter kaltem fließendem Wasser spülen, bis das Wasser klar ist.", icon: "M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" },
-          { title: "Einzeln Waschen", desc: "Bei der ersten Wäsche einzeln waschen, um Abfärben zu vermeiden.", icon: "M2 12h10m2 0h8M12 2v20M7 7l10 10M7 17L17 7" },
-          { title: "Lufttrocknen", desc: "Direktes Sonnenlicht vermeiden. Liegend trocknen für beste Form.", icon: "M17.7 7.7A7.1 7.1 0 1 1 5 8c0 .3 0 .6.1.9M18 21l-3-3m3 3l3-3m-3 3V15" },
-          { title: "Farbschutz", desc: "Verwenden Sie für zukünftige Wäschen mildes, bleichmittelfreies Waschmittel.", icon: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707" },
-        ],
-        footer: "Mit Liebe handgefertigt. Mit Sorgfalt behandeln.",
-      },
-      hi: {
-        title: "टाई-डाई देखभाल मार्गदर्शिका",
-        subtitle: "अपने रंगों को हमेशा के लिए जीवंत रखें",
-        steps: [
-          { title: "ठंडे पानी से धोएं", desc: "ठंडे बहते पानी के नीचे तब तक धोएं जब तक पानी साफ न हो जाए।", icon: "M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" },
-          { title: "अकेले धोएं", desc: "पहली धुलाई के लिए इसे अलग रखें ताकि रंग न फैले।", icon: "M2 12h10m2 0h8M12 2v20M7 7l10 10M7 17L17 7" },
-          { title: "हवा में सुखाएं", desc: "सीधी धूप से बचाएं। बेहतर आकार के लिए इसे समतल सुखाएं।", icon: "M17.7 7.7A7.1 7.1 0 1 1 5 8c0 .3 0 .6.1.9M18 21l-3-3m3 3l3-3m-3 3V15" },
-          { title: "रंग सुरक्षित", desc: "भविष्य की धुलाई के लिए हल्का, ब्लीच-मुक्त डिटर्जेंट इस्तेमाल करें।", icon: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707" },
-        ],
-        footer: "प्यार से हाथ से बनाया गया। इसे सावधानी से संभालें।",
-      },
-      pa: {
-        title: "ਟਾਈ-ਡਾਈ ਦੇਖਭਾਲ ਗਾਈਡ",
-        subtitle: "ਆਪਣੇ ਰੰਗਾਂ ਨੂੰ ਹਮੇਸ਼ਾ ਲਈ ਜੀਵੰਤ ਰੱਖੋ",
-        steps: [
-          { title: "ਠੰਡੇ ਪਾਣੀ ਨਾਲ ਧੋਵੋ", desc: "ਠੰਡੇ ਵਗਦੇ ਪਾਣੀ ਦੇ ਹੇਠਾਂ ਉਦੋਂ ਤੱਕ ਧੋਵੋ ਜਦੋਂ ਤੱਕ ਪਾਣੀ ਸਾਫ਼ ਨਾ ਹੋ ਜਾਵੇ।", icon: "M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" },
-          { title: "ਇਕੱਲੇ ਧੋਵੋ", desc: "ਪਹਿਲੀ ਵਾਰ ਧੋਣ ਵੇਲੇ, ਰੰਗਾਂ ਨੂੰ ਮਿਲਣ ਤੋਂ ਰੋਕਣ ਲਈ ਇਸਨੂੰ ਇਕੱਲਾ ਰੱਖੋ।", icon: "M2 12h10m2 0h8M12 2v20M7 7l10 10M7 17L17 7" },
-          { title: "ਹਵਾ ਵਿੱਚ ਸੁਕਾਓ", desc: "ਸਿੱਧੀ ਧੁੱਪ ਤੋਂ ਬਚੋ। ਬਿਹਤਰ ਆਕਾਰ ਲਈ ਇਸਨੂੰ ਸਮਤਲ ਸੁਕਾਓ।", icon: "M17.7 7.7A7.1 7.1 0 1 1 5 8c0 .3 0 .6.1.9M18 21l-3-3m3 3l3-3m-3 3V15" },
-          { title: "ਰੰਗ ਸੁਰੱਖਿਅਤ", desc: "ਭਵਿੱਖ ਦੀਆਂ ਧੁਲਾਈਆਂ ਲਈ ਹਲਕਾ, ਬਲੀਚ-ਮੁਕਤ ਡਿਟਰਜੈਂਟ ਵਰਤੋ।", icon: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707" },
-        ],
-        footer: "ਪਿਆਰ ਨਾਲ ਹੱਥੀਂ ਬਣਾਇਆ ਗਿਆ। ਇਸਦੀ ਦੇਖਭਾਲ ਕਰੋ।",
-      },
-      it: {
-        title: "Guida alla Cura Tie-Dye",
-        subtitle: "Mantieni i tuoi colori vivaci per sempre",
-        steps: [
-          { title: "Risciacquo Freddo", desc: "Risciacquare sotto acqua fredda corrente finché l'acqua non è limpida.", icon: "M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" },
-          { title: "Lavare da Solo", desc: "Per il primo lavaggio, lavare separatamente per evitare macchie di colore.", icon: "M2 12h10m2 0h8M12 2v20M7 7l10 10M7 17L17 7" },
-          { title: "Asciugare all'Aria", desc: "Evitare la luce solare diretta. Asciugare in piano per preservare la forma.", icon: "M17.7 7.7A7.1 7.1 0 1 1 5 8c0 .3 0 .6.1.9M18 21l-3-3m3 3l3-3m-3 3V15" },
-          { title: "Colori Protetti", desc: "Usare un detersivo delicato senza candeggina per i futuri lavaggi.", icon: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707" },
-        ],
-        footer: "Fatto a mano con amore. Trattalo con cura.",
-      },
-      ur: {
-        title: "ٹائی ڈائی دیکھ بھال گائیڈ",
-        subtitle: "اپنے رنگوں کو ہمیشہ کے لیے روشن رکھیں",
-        steps: [
-          { title: "ٹھنڈے پانی سے دھوئیں", desc: "ٹھنڈے بہتے پانی کے نیچے تب تک دھوئیں جب تک پانی صاف نہ ہو جائے۔", icon: "M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" },
-          { title: "اکیلے دھوئیں", desc: "پہلی بار دھونے کے لیے، رنگ ملنے سے بچانے کے لیے اسے الگ رکھیں۔", icon: "M2 12h10m2 0h8M12 2v20M7 7l10 10M7 17L17 7" },
-          { title: "ہوا میں سکھائیں", desc: "براہ راست دھوپ سے بچائیں۔ بہتر شکل کے لیے اسے ہموار سطح پر سکھائیں۔", icon: "M17.7 7.7A7.1 7.1 0 1 1 5 8c0 .3 0 .6.1.9M18 21l-3-3m3 3l3-3m-3 3V15" },
-          { title: "رنگ محفوظ", desc: "مستقبل میں دھونے کے لیے ہلکا، بلیچ سے پاک ڈٹرجنٹ استعمال کریں۔", icon: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707" },
-        ],
-        footer: "محبت سے ہاتھ سے بنایا گیا۔ اسے احتیاط سے استعمال کریں۔",
-      },
-    };
-
-    const updateContent = (lang) => {
-      const t = translations[lang];
-      const isRTL = rtlLanguages.includes(lang);
-
-      const main = document.getElementById("content");
-      main.className = `pt-24 pb-12 ${isRTL ? "rtl" : ""}`;
-      main.setAttribute("dir", isRTL ? "rtl" : "ltr");
-
-      const heroText = document.getElementById("hero-text");
-      heroText.className = `absolute inset-0 hero-gradient flex flex-col justify-end p-8 md:p-12 ${isRTL ? "items-end text-right" : "items-start text-left"}`;
-      document.getElementById("title").textContent = t.title;
-      document.getElementById("subtitle").textContent = t.subtitle;
-
-      const grid = document.getElementById("steps-grid");
-      grid.innerHTML = t.steps
-        .map(
-          (step) => `
-            <div class="card-hover h-full border-none bg-secondary/50 hover:bg-secondary transition-all duration-300 group overflow-hidden relative rounded-2xl p-6 ${isRTL ? "text-right" : "text-left"}">
-              <div class="absolute top-0 p-4 text-primary/10 group-hover:text-primary/20 transition-colors icon-bg ${isRTL ? "left-0" : "right-0"}">
-                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="${step.icon}" />
-                </svg>
-              </div>
-              <div class="flex flex-col ${isRTL ? "items-end" : "items-start"}">
-                <div class="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center text-white mb-4 shadow-lg shadow-primary/20">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="${step.icon}" />
-                  </svg>
-                </div>
-                <h3 class="font-serif text-xl mb-2">${step.title}</h3>
-                <p class="text-muted-foreground leading-relaxed">${step.desc}</p>
-              </div>
-            </div>
-          `,
-        )
-        .join("");
-
-      document.getElementById("footer-text").textContent = t.footer;
-    };
-
-    const langSelect = document.getElementById("lang-select");
-    const defaultLang = navigator.language.split("-")[0];
-    const initialLang = translations[defaultLang] ? defaultLang : "en";
-
-    langSelect.value = initialLang;
-    updateContent(initialLang);
-
-    langSelect.addEventListener("change", (e) => {
-      updateContent(e.target.value);
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
