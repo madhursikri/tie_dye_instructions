@@ -1,46 +1,33 @@
-# Adding Support for a New Language (Plain HTML/JS Version)
+# Tie-Dye Instructions Project
 
-This guide explains how to add a new language to the Tie-Dye Care Guide website.
+This repository currently contains two UI implementations of the same tie-dye care guide:
 
-## Files to Update
+1. `index.html`: plain HTML/JS version.
+2. `src/pages/home.tsx`: React/TypeScript version.
 
-### 1. `client/index.html`
+Both versions include the same translation content and language selector.
 
-All translations and configurations are now located in the `<script>` tag at the bottom of `client/index.html`.
+## Adding a New Language
 
-#### Step A: Add to the Dropdown
-Locate the `<select id="lang-select">` and add a new `<option>`.
-```html
-<option value="your_new_code">Display Name (Local Name)</option>
-```
+Update both implementations so they stay in sync.
 
-#### Step B: Add Translations to the `translations` Object
-Find the `const translations = { ... };` object in the script tag and add your new entry.
-```javascript
-const translations = {
-    // ... existing languages
-    your_new_code: {
-        title: "Translated Title",
-        subtitle: "Translated Subtitle",
-        steps: [
-            { title: "Step 1", desc: "Description 1", icon: 'SVG_PATH_D_ATTRIBUTE' },
-            { title: "Step 2", desc: "Description 2", icon: 'SVG_PATH_D_ATTRIBUTE' },
-            { title: "Step 3", desc: "Description 3", icon: 'SVG_PATH_D_ATTRIBUTE' },
-            { title: "Step 4", desc: "Description 4", icon: 'SVG_PATH_D_ATTRIBUTE' }
-        ],
-        footer: "Translated Footer"
-    }
-};
-```
-*Note: The `icon` field uses the `d` attribute of a Lucide icon SVG path.*
+### 1. Plain HTML/JS version (`index.html`)
 
-#### Step C: Handle RTL (Optional)
-If the new language is Right-to-Left (like Arabic or Hebrew), update the `isUrdu` check in the `updateContent` function.
-```javascript
-const isRTL = ['ur', 'your_new_code'].includes(lang);
-```
+1. Add the new option in `<select id="lang-select">`.
+2. Add a new entry in `translations`.
+3. If the language is RTL, update:
+   - `const isRTL = ['ur', 'your_new_code'].includes(lang);`
 
-## Testing Your Changes
-1. Open the website.
-2. Select your new language from the dropdown.
-3. Verify the text and layout.
+### 2. React/TypeScript version (`src/pages/home.tsx`)
+
+1. Extend the `Language` type with the new language code.
+2. Add translated content in `translations`.
+3. Add label in `languageNames`.
+4. If the language is RTL, include it in:
+   - `const isRTL = ['ur', 'your_new_code'].includes(lang);`
+
+## Testing
+
+1. Open the app.
+2. Switch to the new language from the dropdown.
+3. Verify title, subtitle, steps, footer, and RTL layout (if applicable).

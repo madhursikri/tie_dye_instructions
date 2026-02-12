@@ -1,20 +1,29 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import type { LucideIcon } from "lucide-react";
+import { Droplets, Sparkles, ThermometerSnowflake, Wind } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Droplets, ThermometerSnowflake, Wind, Sparkles } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import heroImage from "@/assets/images/tie-dye-hero.png";
 
 type Language = "en" | "es" | "fr" | "de" | "hi" | "pa" | "it" | "ur";
 
+interface Step {
+  title: string;
+  desc: string;
+  icon: LucideIcon;
+}
+
 interface Translation {
   title: string;
   subtitle: string;
-  steps: {
-    title: string;
-    desc: string;
-    icon: any;
-  }[];
+  steps: Step[];
   footer: string;
 }
 
@@ -23,102 +32,232 @@ const translations: Record<Language, Translation> = {
     title: "Tie-Dye Care Guide",
     subtitle: "Keep your colors vibrant forever",
     steps: [
-      { title: "Rinse Cold", desc: "Rinse under cold running water until the water runs clear.", icon: Droplets },
-      { title: "Wash Alone", desc: "For the first wash, keep it solo to avoid color bleeding.", icon: ThermometerSnowflake },
-      { title: "Air Dry", desc: "Avoid direct sunlight. Flat dry for the best shape preservation.", icon: Wind },
-      { title: "Color Safe", desc: "Use mild, bleach-free detergent for future washes.", icon: Sparkles },
+      {
+        title: "Rinse Cold",
+        desc: "Rinse under cold running water until the water runs clear.",
+        icon: Droplets,
+      },
+      {
+        title: "Wash Alone",
+        desc: "For the first wash, keep it solo to avoid color bleeding.",
+        icon: ThermometerSnowflake,
+      },
+      {
+        title: "Air Dry",
+        desc: "Avoid direct sunlight. Flat dry for the best shape preservation.",
+        icon: Wind,
+      },
+      {
+        title: "Color Safe",
+        desc: "Use mild, bleach-free detergent for future washes.",
+        icon: Sparkles,
+      },
     ],
-    footer: "Handcrafted with love. Treat it with care."
+    footer: "Handcrafted with love. Treat it with care.",
   },
   es: {
-    title: "Guía de Cuidado Tie-Dye",
-    subtitle: "Mantén tus colores vibrantes para siempre",
+    title: "Guia de Cuidado Tie-Dye",
+    subtitle: "Manten tus colores vibrantes para siempre",
     steps: [
-      { title: "Enjuague Frío", desc: "Enjuague con agua fría hasta que el agua salga clara.", icon: Droplets },
-      { title: "Lavar Solo", desc: "Para el primer lavado, lávelo solo para evitar que se destiña.", icon: ThermometerSnowflake },
-      { title: "Secar al Aire", desc: "Evite la luz solar directa. Seque en plano para preservar la forma.", icon: Wind },
-      { title: "Protección de Color", desc: "Use detergente suave sin lejía para futuros lavados.", icon: Sparkles },
+      {
+        title: "Enjuague Frio",
+        desc: "Enjuaga con agua fria hasta que el agua salga clara.",
+        icon: Droplets,
+      },
+      {
+        title: "Lavar Solo",
+        desc: "Para el primer lavado, lavalo solo para evitar que se destina.",
+        icon: ThermometerSnowflake,
+      },
+      {
+        title: "Secar al Aire",
+        desc: "Evita la luz solar directa. Seca en plano para preservar la forma.",
+        icon: Wind,
+      },
+      {
+        title: "Proteccion de Color",
+        desc: "Usa detergente suave sin lejia para futuros lavados.",
+        icon: Sparkles,
+      },
     ],
-    footer: "Hecho a mano con amor. Trátalo con cuidado."
+    footer: "Hecho a mano con amor. Tratalo con cuidado.",
   },
   fr: {
     title: "Guide d'Entretien Tie-Dye",
-    subtitle: "Gardez vos couleurs éclatantes pour toujours",
+    subtitle: "Gardez vos couleurs eclatantes pour toujours",
     steps: [
-      { title: "Rinçage à Froid", desc: "Rincez à l'eau froide jusqu'à ce que l'eau soit claire.", icon: Droplets },
-      { title: "Laver Seul", desc: "Pour le premier lavage, lavez-le seul pour éviter les dégorgements.", icon: ThermometerSnowflake },
-      { title: "Séchage à l'Air", desc: "Évitez la lumière directe du soleil. Séchez à plat pour préserver la forme.", icon: Wind },
-      { title: "Couleurs Préservées", desc: "Utilisez une lessive douce sans javel pour les prochains lavages.", icon: Sparkles },
+      {
+        title: "Rincage a Froid",
+        desc: "Rincez a l'eau froide jusqu'a ce que l'eau soit claire.",
+        icon: Droplets,
+      },
+      {
+        title: "Laver Seul",
+        desc: "Pour le premier lavage, lavez-le seul pour eviter les degorgements.",
+        icon: ThermometerSnowflake,
+      },
+      {
+        title: "Sechage a l'Air",
+        desc: "Evitez la lumiere directe du soleil. Sechez a plat pour preserver la forme.",
+        icon: Wind,
+      },
+      {
+        title: "Couleurs Preservees",
+        desc: "Utilisez une lessive douce sans javel pour les prochains lavages.",
+        icon: Sparkles,
+      },
     ],
-    footer: "Fait main avec amour. Traitez-le avec soin."
+    footer: "Fait main avec amour. Traitez-le avec soin.",
   },
   de: {
     title: "Batik Pflegeanleitung",
-    subtitle: "Halten Sie Ihre Farben für immer lebendig",
+    subtitle: "Halten Sie Ihre Farben fur immer lebendig",
     steps: [
-      { title: "Kalt Spülen", desc: "Unter kaltem fließendem Wasser spülen, bis das Wasser klar ist.", icon: Droplets },
-      { title: "Einzeln Waschen", desc: "Bei der ersten Wäsche einzeln waschen, um Abfärben zu vermeiden.", icon: ThermometerSnowflake },
-      { title: "Lufttrocknen", desc: "Direktes Sonnenlicht vermeiden. Liegend trocknen für beste Form.", icon: Wind },
-      { title: "Farbschutz", desc: "Verwenden Sie für zukünftige Wäschen mildes Bleichmittelfreies Waschmittel.", icon: Sparkles },
+      {
+        title: "Kalt Spulen",
+        desc: "Unter kaltem flieendem Wasser spulen, bis das Wasser klar ist.",
+        icon: Droplets,
+      },
+      {
+        title: "Einzeln Waschen",
+        desc: "Bei der ersten Wasche einzeln waschen, um Abfarben zu vermeiden.",
+        icon: ThermometerSnowflake,
+      },
+      {
+        title: "Lufttrocknen",
+        desc: "Direktes Sonnenlicht vermeiden. Liegend trocknen fur beste Form.",
+        icon: Wind,
+      },
+      {
+        title: "Farbschutz",
+        desc: "Verwenden Sie fur zukunftige Waschen mildes, bleichmittelfreies Waschmittel.",
+        icon: Sparkles,
+      },
     ],
-    footer: "Mit Liebe handgefertigt. Mit Sorgfalt behandeln."
+    footer: "Mit Liebe handgefertigt. Mit Sorgfalt behandeln.",
   },
   hi: {
-    title: "टाई-डाई देखभाल मार्गदर्शिका",
-    subtitle: "अपने रंगों को हमेशा के लिए जीवंत रखें",
+    title: "Tie-Dye Dekhbhal Margdarshika",
+    subtitle: "Apne rango ko hamesha ke liye jeevant rakhen",
     steps: [
-      { title: "ठंडे पानी से धोएं", desc: "ठंडे बहते पानी के नीचे तब तक धोएं जब तक पानी साफ न हो जाए।", icon: Droplets },
-      { title: "अकेले धोएं", desc: "पहली धुलाई के लिए, रंगों को मिलने से बचाने के लिए इसे अकेला रखें।", icon: ThermometerSnowflake },
-      { title: "हवा में सुखाएं", desc: "सीधी धूप से बचें। बेहतर आकार के लिए इसे समतल सुखाएं।", icon: Wind },
-      { title: "रंग सुरक्षित", desc: "भविष्य की धुलाई के लिए हल्के, ब्लीच-मुक्त डिटर्जेंट का उपयोग करें।", icon: Sparkles },
+      {
+        title: "Thande Pani Se Dhoen",
+        desc: "Thande behte pani ke niche tab tak dhoen jab tak pani saaf na ho jaye.",
+        icon: Droplets,
+      },
+      {
+        title: "Akele Dhoen",
+        desc: "Pehli dhulai ke liye ise alag rakhen taki rang na phale.",
+        icon: ThermometerSnowflake,
+      },
+      {
+        title: "Hawa Mein Sukhaen",
+        desc: "Seedhi dhoop se bachayen. Behtar aakar ke liye ise samatal sukhaen.",
+        icon: Wind,
+      },
+      {
+        title: "Rang Surakshit",
+        desc: "Bhavishya ki dhulai ke liye halka, bleach-mukt detergent istemal karen.",
+        icon: Sparkles,
+      },
     ],
-    footer: "प्यार से हाथ से बनाया गया। इसे सावधानी से संभालें।"
+    footer: "Pyar se hath se banaya gaya. Ise saavdhani se sambhalen.",
   },
   pa: {
-    title: "ਟਾਈ-ਡਾਈ ਦੇਖਭਾਲ ਗਾਈਡ",
-    subtitle: "ਆਪਣੇ ਰੰਗਾਂ ਨੂੰ ਹਮੇਸ਼ਾ ਲਈ ਜੀਵੰਤ ਰੱਖੋ",
+    title: "Tie-Dye Dekhbhaal Guide",
+    subtitle: "Apne ranga nu hamesha layi jeevant rakho",
     steps: [
-      { title: "ਠੰਡੇ ਪਾਣੀ ਨਾਲ ਧੋਵੋ", desc: "ਠੰਡੇ ਵਗਦੇ ਪਾਣੀ ਦੇ ਹੇਠਾਂ ਉਦੋਂ ਤੱਕ ਧੋਵੋ ਜਦੋਂ ਤੱਕ ਪਾਣੀ ਸਾਫ਼ ਨਹੀਂ ਹੋ ਜਾਂਦਾ।", icon: Droplets },
-      { title: "ਇਕੱਲੇ ਧੋਵੋ", desc: "ਪਹਿਲੀ ਵਾਰ ਧੋਣ ਵੇਲੇ, ਰੰਗਾਂ ਨੂੰ ਮਿਲਣ ਤੋਂ ਰੋਕਣ ਲਈ ਇਸਨੂੰ ਇਕੱਲਾ ਰੱਖੋ।", icon: ThermometerSnowflake },
-      { title: "ਹਵਾ ਵਿੱਚ ਸੁਕਾਓ", desc: "ਸਿੱਧੀ ਧੁੱਪ ਤੋਂ ਬਚੋ। ਬਿਹਤਰ ਆਕਾਰ ਲਈ ਇਸਨੂੰ ਪੱਧਰਾ ਸੁਕਾਓ।", icon: Wind },
-      { title: "ਰੰਗ ਸੁਰੱਖਿਅਤ", desc: "ਭਵਿੱਖ ਦੀਆਂ ਧੁਲਾਈਆਂ ਲਈ ਹਲਕੇ, ਬਲੀਚ-ਮੁਕਤ ਡਿਟਰਜੈਂਟ ਦੀ ਵਰਤੋਂ ਕਰੋ।", icon: Sparkles },
+      {
+        title: "Thande Pani Naal Dho Vo",
+        desc: "Thande vagde pani de hethan udon tak dho vo jadon tak pani saaf na ho jave.",
+        icon: Droplets,
+      },
+      {
+        title: "Ikalle Dho Vo",
+        desc: "Pehli vaar dhon vele, ranga nu milan ton rokan layi isnu ikalla rakho.",
+        icon: ThermometerSnowflake,
+      },
+      {
+        title: "Hawa Vich Sukhao",
+        desc: "Sidhi dhoop ton bacho. Behtar aakar layi isnu padhar sukhao.",
+        icon: Wind,
+      },
+      {
+        title: "Rang Surakhit",
+        desc: "Bhavikh diyan dhulayan layi halka, bleach-mukt detergent varto.",
+        icon: Sparkles,
+      },
     ],
-    footer: "ਪਿਆਰ ਨਾਲ ਹੱਥੀਂ ਬਣਾਇਆ ਗਿਆ। ਇਸਦੀ ਦੇਖਭਾਲ ਕਰੋ।"
+    footer: "Pyar nal hathi banaya giya. Isdi dekhbhaal karo.",
   },
   it: {
     title: "Guida alla Cura Tie-Dye",
     subtitle: "Mantieni i tuoi colori vivaci per sempre",
     steps: [
-      { title: "Risciacquo Freddo", desc: "Risciacquare sotto acqua fredda corrente finché l'acqua non è limpida.", icon: Droplets },
-      { title: "Lavare da Solo", desc: "Per il primo lavaggio, lavare separatamente per evitare macchie di colore.", icon: ThermometerSnowflake },
-      { title: "Asciugare all'Aria", desc: "Evitare la luce solare diretta. Asciugare in piano per preservare la forma.", icon: Wind },
-      { title: "Colori Protetti", desc: "Usare un detersivo delicato senza candeggina per i futuri lavaggi.", icon: Sparkles },
+      {
+        title: "Risciacquo Freddo",
+        desc: "Risciacquare sotto acqua fredda corrente finche l'acqua non e limpida.",
+        icon: Droplets,
+      },
+      {
+        title: "Lavare da Solo",
+        desc: "Per il primo lavaggio, lavare separatamente per evitare macchie di colore.",
+        icon: ThermometerSnowflake,
+      },
+      {
+        title: "Asciugare all'Aria",
+        desc: "Evitare la luce solare diretta. Asciugare in piano per preservare la forma.",
+        icon: Wind,
+      },
+      {
+        title: "Colori Protetti",
+        desc: "Usare un detersivo delicato senza candeggina per i futuri lavaggi.",
+        icon: Sparkles,
+      },
     ],
-    footer: "Fatto a mano con amore. Trattalo con cura."
+    footer: "Fatto a mano con amore. Trattalo con cura.",
   },
   ur: {
-    title: "ٹائی ڈائی کی دیکھ بھال کی گائیڈ",
-    subtitle: "اپنے رنگوں کو ہمیشہ کے لیے روشن رکھیں",
+    title: "Tie-Dye Care Guide (Urdu)",
+    subtitle: "Apne rangon ko hamesha roshan rakhen",
     steps: [
-      { title: "ٹھنڈے پانی سے دھوئیں", desc: "ٹھنڈے بہتے پانی کے نیچے تب تک دھوئیں جب تک پانی صاف نہ ہو جائے۔", icon: Droplets },
-      { title: "اکیلے دھوئیں", desc: "پہلی بار دھونے کے لیے، رنگوں کو ملنے سے بچانے کے لیے اسے اکیلا رکھیں۔", icon: ThermometerSnowflake },
-      { title: "ہوا میں سکھائیں", desc: "براہ راست سورج کی روشنی سے بچیں۔ بہترین شکل کے لیے اسے ہموار سکھائیں۔", icon: Wind },
-      { title: "رنگ محفوظ", desc: "مستقبل میں دھونے کے لیے ہلکا، بلیچ سے پاک صابن استعمال کریں۔", icon: Sparkles },
+      {
+        title: "Thande Pani Se Dhoyen",
+        desc: "Thande behte pani ke niche tab tak dhoyen jab tak pani saaf na ho jaye.",
+        icon: Droplets,
+      },
+      {
+        title: "Akele Dhoyen",
+        desc: "Pehli baar dhone ke liye, rang milne se bachane ke liye ise alag rakhen.",
+        icon: ThermometerSnowflake,
+      },
+      {
+        title: "Hawa Mein Sukhayen",
+        desc: "Seedhi dhoop se bachayen. Behtar shakal ke liye ise hamwar sukhayen.",
+        icon: Wind,
+      },
+      {
+        title: "Rang Mehfooz",
+        desc: "Mustaqbil mein dhone ke liye halka, bleach-free detergent istemal karen.",
+        icon: Sparkles,
+      },
     ],
-    footer: "محبت سے ہاتھ سے بنایا گیا۔ اسے احتیاط سے استعمال کریں۔"
-  }
+    footer: "Mohabbat se hath se banaya gaya. Ise ehtiyat se istemal karen.",
+  },
 };
 
 const languageNames: Record<Language, string> = {
   en: "English",
-  es: "Español",
-  fr: "Français",
+  es: "Espanol",
+  fr: "Francais",
   de: "Deutsch",
-  hi: "हिन्दी (Hindi)",
-  pa: "ਪੰਜਾਬੀ (Punjabi)",
+  hi: "Hindi",
+  pa: "Punjabi",
   it: "Italiano",
-  ur: "اردو (Urdu)"
+  ur: "Urdu",
 };
+
+const rtlLanguages: Language[] = ["ur"];
 
 export default function Home() {
   const [lang, setLang] = useState<Language>("en");
@@ -131,17 +270,20 @@ export default function Home() {
   }, []);
 
   const t = translations[lang];
+  const isRTL = rtlLanguages.includes(lang);
 
   return (
     <div className="min-h-screen bg-background font-sans">
-      {/* Header / Language Selector */}
       <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <div className="font-serif text-2xl font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
-            VividCare
+            Patterson Elementary PTA
           </div>
           <Select value={lang} onValueChange={(val) => setLang(val as Language)}>
-            <SelectTrigger className="w-[140px] rounded-full border-primary/20 hover:border-primary/50 transition-colors" data-testid="select-language">
+            <SelectTrigger
+              className="w-[180px] rounded-full border-primary/20 hover:border-primary/50 transition-colors"
+              data-testid="select-language"
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -155,32 +297,34 @@ export default function Home() {
         </div>
       </nav>
 
-      <main className={`pt-24 pb-12 ${lang === 'ur' ? 'rtl' : 'ltr'}`}>
-        {/* Hero Section */}
+      <main className="pt-24 pb-12" dir={isRTL ? "rtl" : "ltr"}>
         <div className="container mx-auto px-6 mb-16">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="relative h-[300px] md:h-[450px] rounded-[2rem] overflow-hidden shadow-2xl"
           >
-            <img 
-              src={heroImage} 
-              alt="Tie-dye textures" 
-              className="w-full h-full object-cover"
-            />
-            <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex flex-col justify-end p-8 md:p-12 ${lang === 'ur' ? 'items-end text-right' : 'items-start text-left'}`}>
-              <h1 className="font-serif text-4xl md:text-6xl text-white mb-4" data-testid="text-title">
+            <img src={heroImage} alt="Tie-dye textures" className="w-full h-full object-cover" />
+            <div
+              className={`absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex flex-col justify-end p-8 md:p-12 ${isRTL ? "items-end text-right" : "items-start text-left"}`}
+            >
+              <h1
+                className="font-serif text-4xl md:text-6xl text-white mb-4"
+                data-testid="text-title"
+              >
                 {t.title}
               </h1>
-              <p className="text-white/90 text-lg md:text-xl font-medium" data-testid="text-subtitle">
+              <p
+                className="text-white/90 text-lg md:text-xl font-medium"
+                data-testid="text-subtitle"
+              >
                 {t.subtitle}
               </p>
             </div>
           </motion.div>
         </div>
 
-        {/* Instructions Grid */}
-        <div className={`container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 ${lang === 'ur' ? 'rtl' : ''}`}>
+        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <AnimatePresence mode="wait">
             {t.steps.map((step, idx) => (
               <motion.div
@@ -190,11 +334,15 @@ export default function Home() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ delay: idx * 0.1 }}
               >
-                <Card className={`h-full border-none bg-secondary/50 hover:bg-secondary transition-all duration-300 group overflow-hidden relative ${lang === 'ur' ? 'text-right' : ''}`}>
-                  <div className={`absolute top-0 p-4 text-primary/10 group-hover:text-primary/20 transition-colors ${lang === 'ur' ? 'left-0' : 'right-0'}`}>
+                <Card
+                  className={`h-full border-none bg-secondary/50 hover:bg-secondary transition-all duration-300 group overflow-hidden relative ${isRTL ? "text-right" : ""}`}
+                >
+                  <div
+                    className={`absolute top-0 p-4 text-primary/10 group-hover:text-primary/20 transition-colors ${isRTL ? "left-0" : "right-0"}`}
+                  >
                     <step.icon size={80} strokeWidth={1} />
                   </div>
-                  <CardHeader className={lang === 'ur' ? 'flex flex-col items-end' : ''}>
+                  <CardHeader className={isRTL ? "flex flex-col items-end" : ""}>
                     <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center text-primary-foreground mb-4 shadow-lg shadow-primary/20">
                       <step.icon size={24} />
                     </div>
@@ -203,7 +351,10 @@ export default function Home() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground leading-relaxed" data-testid={`text-step-desc-${idx}`}>
+                    <p
+                      className="text-muted-foreground leading-relaxed"
+                      data-testid={`text-step-desc-${idx}`}
+                    >
                       {step.desc}
                     </p>
                   </CardContent>
