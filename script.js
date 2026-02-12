@@ -1,5 +1,6 @@
 ﻿const LANGUAGES = ["en", "es", "fr", "de", "hi", "pa", "it", "ur"];
 const RTL_LANGUAGES = new Set(["ur"]);
+const LANG_STORAGE_KEY = "tieDyeLanguage";
 
 const languageNames = {
   en: "English",
@@ -12,17 +13,6 @@ const languageNames = {
   ur: "اردو",
 };
 
-const guideLabels = {
-  en: "Care Guide",
-  es: "Guía de Cuidado",
-  fr: "Guide d'entretien",
-  de: "Pflegeanleitung",
-  hi: "देखभाल गाइड",
-  pa: "ਦੇਖਭਾਲ ਗਾਈਡ",
-  it: "Guida alla Cura",
-  ur: "دیکھ بھال گائیڈ",
-};
-
 const icons = {
   rinse: "💧",
   wash: "🧺",
@@ -32,6 +22,10 @@ const icons = {
 
 const translations = {
   en: {
+    eyebrow: "Care Guide",
+    pageTitle: "Tie-Dye Care Guide",
+    stepsHeading: "Step-by-step care",
+    languageSelectLabel: "Select language",
     title: "Tie-Dye Care Guide",
     subtitle: "Keep your colors vibrant forever",
     steps: [
@@ -43,6 +37,10 @@ const translations = {
     footer: "Handcrafted with love. Treat it with care.",
   },
   es: {
+    eyebrow: "Guía de Cuidado",
+    pageTitle: "Guía de Cuidado Tie-Dye",
+    stepsHeading: "Cuidado paso a paso",
+    languageSelectLabel: "Seleccionar idioma",
     title: "Guía de Cuidado Tie-Dye",
     subtitle: "Mantén tus colores vibrantes para siempre",
     steps: [
@@ -54,6 +52,10 @@ const translations = {
     footer: "Hecho a mano con amor. Trátalo con cuidado.",
   },
   fr: {
+    eyebrow: "Guide d'entretien",
+    pageTitle: "Guide d'Entretien Tie-Dye",
+    stepsHeading: "Entretien étape par étape",
+    languageSelectLabel: "Choisir la langue",
     title: "Guide d'Entretien Tie-Dye",
     subtitle: "Gardez vos couleurs éclatantes pour toujours",
     steps: [
@@ -65,6 +67,10 @@ const translations = {
     footer: "Fait main avec amour. Traitez-le avec soin.",
   },
   de: {
+    eyebrow: "Pflegeanleitung",
+    pageTitle: "Batik Pflegeanleitung",
+    stepsHeading: "Schritt-für-Schritt-Pflege",
+    languageSelectLabel: "Sprache auswählen",
     title: "Batik Pflegeanleitung",
     subtitle: "Halten Sie Ihre Farben für immer lebendig",
     steps: [
@@ -76,6 +82,10 @@ const translations = {
     footer: "Mit Liebe handgefertigt. Mit Sorgfalt behandeln.",
   },
   hi: {
+    eyebrow: "देखभाल गाइड",
+    pageTitle: "टाई-डाई देखभाल मार्गदर्शिका",
+    stepsHeading: "चरण-दर-चरण देखभाल",
+    languageSelectLabel: "भाषा चुनें",
     title: "टाई-डाई देखभाल मार्गदर्शिका",
     subtitle: "अपने रंगों को हमेशा के लिए जीवंत रखें",
     steps: [
@@ -87,6 +97,10 @@ const translations = {
     footer: "प्यार से हाथ से बनाया गया। इसे सावधानी से संभालें।",
   },
   pa: {
+    eyebrow: "ਦੇਖਭਾਲ ਗਾਈਡ",
+    pageTitle: "ਟਾਈ-ਡਾਈ ਦੇਖਭਾਲ ਗਾਈਡ",
+    stepsHeading: "ਕਦਮ-ਦਰ-ਕਦਮ ਦੇਖਭਾਲ",
+    languageSelectLabel: "ਭਾਸ਼ਾ ਚੁਣੋ",
     title: "ਟਾਈ-ਡਾਈ ਦੇਖਭਾਲ ਗਾਈਡ",
     subtitle: "ਆਪਣੇ ਰੰਗਾਂ ਨੂੰ ਹਮੇਸ਼ਾ ਲਈ ਜੀਵੰਤ ਰੱਖੋ",
     steps: [
@@ -98,6 +112,10 @@ const translations = {
     footer: "ਪਿਆਰ ਨਾਲ ਹੱਥੀਂ ਬਣਾਇਆ ਗਿਆ। ਇਸਦੀ ਦੇਖਭਾਲ ਕਰੋ।",
   },
   it: {
+    eyebrow: "Guida alla Cura",
+    pageTitle: "Guida alla Cura Tie-Dye",
+    stepsHeading: "Cura passo dopo passo",
+    languageSelectLabel: "Seleziona lingua",
     title: "Guida alla Cura Tie-Dye",
     subtitle: "Mantieni i tuoi colori vivaci per sempre",
     steps: [
@@ -109,6 +127,10 @@ const translations = {
     footer: "Fatto a mano con amore. Trattalo con cura.",
   },
   ur: {
+    eyebrow: "دیکھ بھال گائیڈ",
+    pageTitle: "ٹائی ڈائی دیکھ بھال گائیڈ",
+    stepsHeading: "مرحلہ وار دیکھ بھال",
+    languageSelectLabel: "زبان منتخب کریں",
     title: "ٹائی ڈائی دیکھ بھال گائیڈ",
     subtitle: "اپنے رنگوں کو ہمیشہ کے لیے روشن رکھیں",
     steps: [
@@ -129,15 +151,20 @@ function render(lang) {
   const t = translations[lang] || translations.en;
   const isRTL = RTL_LANGUAGES.has(lang);
 
+  document.documentElement.lang = lang;
+
   const content = document.getElementById("content");
   content.dir = isRTL ? "rtl" : "ltr";
 
   const heroText = document.getElementById("hero-text");
   heroText.className = `hero-overlay ${isRTL ? "text-right" : "text-left"}`;
 
+  document.title = `${t.pageTitle} | Patterson Elementary PTA`;
   document.getElementById("title").textContent = t.title;
   document.getElementById("subtitle").textContent = t.subtitle;
-  document.getElementById("eyebrow").textContent = guideLabels[lang] || guideLabels.en;
+  document.getElementById("eyebrow").textContent = t.eyebrow;
+  document.getElementById("steps-heading").textContent = t.stepsHeading;
+  document.getElementById("lang-select").setAttribute("aria-label", t.languageSelectLabel);
   document.getElementById("footer-text").textContent = t.footer;
 
   const stepsGrid = document.getElementById("steps-grid");
@@ -158,15 +185,20 @@ function render(lang) {
   const select = document.getElementById("lang-select");
   renderLanguageOptions(select);
 
+  const savedLang = localStorage.getItem(LANG_STORAGE_KEY);
   const browserLang = (navigator.language || "en").split("-")[0];
-  const initialLang = LANGUAGES.includes(browserLang) ? browserLang : "en";
+  const initialLang = LANGUAGES.includes(savedLang)
+    ? savedLang
+    : LANGUAGES.includes(browserLang)
+      ? browserLang
+      : "en";
 
   select.value = initialLang;
   render(initialLang);
 
   select.addEventListener("change", (e) => {
-    render(e.target.value);
+    const selectedLang = e.target.value;
+    localStorage.setItem(LANG_STORAGE_KEY, selectedLang);
+    render(selectedLang);
   });
 })();
-
-

@@ -1,44 +1,60 @@
 ﻿# Tie-Dye Instructions Project
 
-This project is now a plain static website:
+This repository is a plain static website.
 
-- `index.html`
-- `styles.css`
-- `script.js`
-- `public/` assets
+## Project Structure
 
-## Run / Deploy
+- `index.html`: page structure and metadata
+- `styles.css`: all styling
+- `script.js`: language data and UI rendering
+- `public/`: static assets (`favicon`, social image, hero image)
+
+## Local Run
 
 No build step is required.
 
 1. Open `index.html` directly in a browser, or
-2. Host the folder on any static web server (GitHub Pages, Netlify, S3, etc.).
+2. Serve the folder from any static web server.
+
+Example using Python:
+
+```bash
+python -m http.server 8080
+```
+
+Then open `http://localhost:8080`.
+
+## Production Deployment
+
+This project is ready for static hosting (GitHub Pages, Netlify, Vercel static output, S3 + CloudFront, etc.).
+
+Deployment checklist:
+
+1. Upload the repository root and keep `public/` at the same relative path.
+2. Ensure `index.html`, `styles.css`, and `script.js` are served as UTF-8.
+3. Enable gzip/brotli compression on the host if available.
+4. Set a long cache TTL for files in `public/` and a shorter TTL for `index.html`.
 
 ## Language Updates
 
-All language-related content lives in `script.js`.
+All language content is in `script.js`, inside `translations`.
 
 ### Edit an existing language
 
-1. Open `script.js`.
-2. Find the language code inside `translations` (for example `en`, `es`, `fr`).
-3. Update:
+1. Find the language code inside `translations` (for example `en`, `es`, `fr`).
+2. Update all user-facing values:
+   - `eyebrow`
+   - `pageTitle`
+   - `stepsHeading`
+   - `languageSelectLabel`
    - `title`
    - `subtitle`
-   - each item in `steps` (`title`, `desc`)
+   - `steps` items (`title`, `desc`)
    - `footer`
-4. Update the top eyebrow text for that language in `guideLabels`.
-5. Save and refresh `index.html`.
 
-### Add a new language (step-by-step)
+### Add a new language
 
-1. Pick a language code (example: `pt`).
-2. Add the code to `LANGUAGES`.
-3. Add the display name in `languageNames`:
-   - Example: `pt: "Português"`
-4. Add the eyebrow label in `guideLabels`:
-   - Example: `pt: "Guia de Cuidados"`
-5. Add a full translation object in `translations` using the same shape as `en`:
-   - `title`, `subtitle`, `steps` (4 items), `footer`
-6. If the language is RTL, add its code to `RTL_LANGUAGES`.
-7. Save and refresh `index.html`.
+1. Add the language code to `LANGUAGES`.
+2. Add the display name to `languageNames`.
+3. Add a full translation entry in `translations` using the same keys as `en`.
+4. If the language is RTL, add the code to `RTL_LANGUAGES`.

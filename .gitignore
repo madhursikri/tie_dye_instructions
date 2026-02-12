@@ -1,10 +1,4 @@
-﻿node_modules/
-dist/
-.vite/
+﻿# Static site project: no framework/build output directories are expected.
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
 .DS_Store
 Thumbs.db
