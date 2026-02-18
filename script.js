@@ -1,4 +1,4 @@
-﻿const LANGUAGES = ["en", "es", "fr", "de", "hi", "pa", "it", "ur"];
+﻿const LANGUAGES = ["en", "es", "fr", "de", "hi", "pa", "it", "ur", "zh", "ko"];
 const RTL_LANGUAGES = new Set(["ur"]);
 const LANG_STORAGE_KEY = "tieDyeLanguage";
 
@@ -11,6 +11,8 @@ const languageNames = {
   pa: "ਪੰਜਾਬੀ",
   it: "Italiano",
   ur: "اردو",
+  zh: "中文",
+  ko: "한국어",
 };
 
 const icons = {
@@ -141,33 +143,72 @@ const translations = {
     ],
     footer: "محبت سے ہاتھ سے بنایا گیا۔ اسے احتیاط سے استعمال کریں۔",
   },
+  zh: {
+    eyebrow: "护理指南",
+    pageTitle: "扎染护理指南",
+    stepsHeading: "分步护理",
+    languageSelectLabel: "选择语言",
+    title: "扎染护理指南",
+    subtitle: "让你的色彩始终鲜艳",
+    steps: [
+      { title: "冷水冲洗", desc: "在冷水下冲洗，直到流出的水变清澈。", icon: icons.rinse },
+      { title: "单独洗涤", desc: "第一次清洗请单独洗，避免串色。", icon: icons.wash },
+      { title: "自然晾干", desc: "避免阳光直晒。平铺晾干可更好保持版型。", icon: icons.dry },
+      { title: "护色清洁", desc: "后续清洗请使用温和无漂白剂的洗涤剂。", icon: icons.safe },
+    ],
+    footer: "手工用心制作，请细心护理。",
+  },
+  ko: {
+    eyebrow: "관리 가이드",
+    pageTitle: "타이다이 관리 가이드",
+    stepsHeading: "단계별 관리법",
+    languageSelectLabel: "언어 선택",
+    title: "타이다이 관리 가이드",
+    subtitle: "색감을 오래도록 선명하게 유지하세요",
+    steps: [
+      { title: "찬물 헹굼", desc: "흐르는 찬물에 물이 맑아질 때까지 헹궈 주세요.", icon: icons.rinse },
+      { title: "단독 세탁", desc: "첫 세탁은 이염 방지를 위해 단독으로 세탁하세요.", icon: icons.wash },
+      { title: "자연 건조", desc: "직사광선을 피하고, 형태 유지를 위해 평평하게 말리세요.", icon: icons.dry },
+      { title: "색상 보호", desc: "이후 세탁에는 표백제 없는 순한 세제를 사용하세요.", icon: icons.safe },
+    ],
+    footer: "정성껏 만든 제품입니다. 소중히 관리해 주세요.",
+  },
 };
 
 function renderLanguageOptions(select) {
+  if (!select) return;
   select.innerHTML = LANGUAGES.map((code) => `<option value="${code}">${languageNames[code]}</option>`).join("");
 }
 
 function render(lang) {
   const t = translations[lang] || translations.en;
   const isRTL = RTL_LANGUAGES.has(lang);
+  const content = document.getElementById("content");
+  const heroText = document.getElementById("hero-text");
+  const title = document.getElementById("title");
+  const subtitle = document.getElementById("subtitle");
+  const eyebrow = document.getElementById("eyebrow");
+  const stepsHeading = document.getElementById("steps-heading");
+  const languageSelect = document.getElementById("lang-select");
+  const footerText = document.getElementById("footer-text");
+  const stepsGrid = document.getElementById("steps-grid");
+
+  if (!content || !heroText || !title || !subtitle || !eyebrow || !stepsHeading || !languageSelect || !footerText || !stepsGrid) {
+    return;
+  }
 
   document.documentElement.lang = lang;
-
-  const content = document.getElementById("content");
   content.dir = isRTL ? "rtl" : "ltr";
-
-  const heroText = document.getElementById("hero-text");
   heroText.className = `hero-overlay ${isRTL ? "text-right" : "text-left"}`;
 
   document.title = `${t.pageTitle} | Patterson Elementary PTA`;
-  document.getElementById("title").textContent = t.title;
-  document.getElementById("subtitle").textContent = t.subtitle;
-  document.getElementById("eyebrow").textContent = t.eyebrow;
-  document.getElementById("steps-heading").textContent = t.stepsHeading;
-  document.getElementById("lang-select").setAttribute("aria-label", t.languageSelectLabel);
-  document.getElementById("footer-text").textContent = t.footer;
+  title.textContent = t.title;
+  subtitle.textContent = t.subtitle;
+  eyebrow.textContent = t.eyebrow;
+  stepsHeading.textContent = t.stepsHeading;
+  languageSelect.setAttribute("aria-label", t.languageSelectLabel);
+  footerText.textContent = t.footer;
 
-  const stepsGrid = document.getElementById("steps-grid");
   stepsGrid.innerHTML = t.steps
     .map(
       (step) => `
@@ -183,6 +224,8 @@ function render(lang) {
 
 (function init() {
   const select = document.getElementById("lang-select");
+  if (!select) return;
+
   renderLanguageOptions(select);
 
   const savedLang = localStorage.getItem(LANG_STORAGE_KEY);
