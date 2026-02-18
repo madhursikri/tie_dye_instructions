@@ -176,30 +176,39 @@ const translations = {
 };
 
 function renderLanguageOptions(select) {
+  if (!select) return;
   select.innerHTML = LANGUAGES.map((code) => `<option value="${code}">${languageNames[code]}</option>`).join("");
 }
 
 function render(lang) {
   const t = translations[lang] || translations.en;
   const isRTL = RTL_LANGUAGES.has(lang);
+  const content = document.getElementById("content");
+  const heroText = document.getElementById("hero-text");
+  const title = document.getElementById("title");
+  const subtitle = document.getElementById("subtitle");
+  const eyebrow = document.getElementById("eyebrow");
+  const stepsHeading = document.getElementById("steps-heading");
+  const languageSelect = document.getElementById("lang-select");
+  const footerText = document.getElementById("footer-text");
+  const stepsGrid = document.getElementById("steps-grid");
+
+  if (!content || !heroText || !title || !subtitle || !eyebrow || !stepsHeading || !languageSelect || !footerText || !stepsGrid) {
+    return;
+  }
 
   document.documentElement.lang = lang;
-
-  const content = document.getElementById("content");
   content.dir = isRTL ? "rtl" : "ltr";
-
-  const heroText = document.getElementById("hero-text");
   heroText.className = `hero-overlay ${isRTL ? "text-right" : "text-left"}`;
 
   document.title = `${t.pageTitle} | Patterson Elementary PTA`;
-  document.getElementById("title").textContent = t.title;
-  document.getElementById("subtitle").textContent = t.subtitle;
-  document.getElementById("eyebrow").textContent = t.eyebrow;
-  document.getElementById("steps-heading").textContent = t.stepsHeading;
-  document.getElementById("lang-select").setAttribute("aria-label", t.languageSelectLabel);
-  document.getElementById("footer-text").textContent = t.footer;
+  title.textContent = t.title;
+  subtitle.textContent = t.subtitle;
+  eyebrow.textContent = t.eyebrow;
+  stepsHeading.textContent = t.stepsHeading;
+  languageSelect.setAttribute("aria-label", t.languageSelectLabel);
+  footerText.textContent = t.footer;
 
-  const stepsGrid = document.getElementById("steps-grid");
   stepsGrid.innerHTML = t.steps
     .map(
       (step) => `
@@ -215,6 +224,8 @@ function render(lang) {
 
 (function init() {
   const select = document.getElementById("lang-select");
+  if (!select) return;
+
   renderLanguageOptions(select);
 
   const savedLang = localStorage.getItem(LANG_STORAGE_KEY);
