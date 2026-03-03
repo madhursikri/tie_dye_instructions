@@ -6,10 +6,15 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..");
-const outputPath = path.join(repoRoot, "public", "print", "tie-dye-workshop-handout.pdf");
+const outputPath = process.env.OUTPUT_PATH
+  ? path.resolve(repoRoot, process.env.OUTPUT_PATH)
+  : path.join(repoRoot, "public", "print", "tie-dye-workshop-handout.pdf");
 
 const websiteUrl = "https://tie-dye-instructions.pages.dev/";
 const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(websiteUrl)}`;
+const heroImagePath = path.join(repoRoot, "public", "images", "tie-dye-hero.png");
+const heroImageBuffer = await fs.readFile(heroImagePath);
+const heroImageDataUri = `data:image/png;base64,${heroImageBuffer.toString("base64")}`;
 
 const html = `<!doctype html>
 <html lang="en">
@@ -32,58 +37,92 @@ const html = `<!doctype html>
       color: #111827;
     }
     body {
-      font-size: 10.5pt;
-      line-height: 1.32;
+      font-size: 10pt;
+      line-height: 1.28;
     }
     .sheet {
       min-height: calc(11in - 1in);
       display: flex;
       flex-direction: column;
-      gap: 0.18in;
+      gap: 0.14in;
+    }
+    .hero {
+      position: relative;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 1.15in;
+      background: #111827;
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-title {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 19pt;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
     }
     h1 {
       margin: 0;
-      font-size: 20pt;
+      font-size: 18pt;
       text-align: center;
     }
     .subtitle {
       margin: 0;
       text-align: center;
-      font-size: 10.5pt;
+      font-size: 10pt;
       color: #374151;
     }
     .section {
       border: 1px solid #d1d5db;
       border-radius: 8px;
-      padding: 10px 12px;
+      padding: 8px 10px;
       background: #f9fafb;
     }
     h2 {
-      margin: 0 0 6px;
-      font-size: 13.5pt;
+      margin: 0 0 5px;
+      font-size: 12.5pt;
     }
     ol {
       margin: 0;
       padding-left: 20px;
     }
     li + li {
-      margin-top: 4px;
+      margin-top: 3px;
     }
     li strong {
-      font-size: 10.7pt;
+      font-size: 10.2pt;
     }
     .footer {
       margin-top: auto;
       text-align: center;
       border-top: 1px dashed #d1d5db;
-      padding-top: 10px;
+      padding-top: 8px;
+    }
+    .crafted {
+      margin: 0 0 7px;
+      font-size: 9.8pt;
+      color: #374151;
+      font-style: italic;
     }
     .qr {
-      width: 1.35in;
-      height: 1.35in;
+      width: 1.2in;
+      height: 1.2in;
       object-fit: contain;
       display: block;
-      margin: 0 auto 6px;
+      margin: 0 auto 5px;
       border: 1px solid #e5e7eb;
       border-radius: 6px;
       background: white;
@@ -91,21 +130,25 @@ const html = `<!doctype html>
     }
     .link {
       margin: 0;
-      font-size: 9.5pt;
+      font-size: 9pt;
       color: #1f2937;
       word-break: break-all;
     }
     .tiny {
-      margin: 4px 0 0;
-      font-size: 9pt;
+      margin: 3px 0 0;
+      font-size: 8.6pt;
       color: #4b5563;
     }
   </style>
 </head>
 <body>
   <main class="sheet">
+    <section class="hero" aria-label="Tie-dye hero image">
+      <img src="${heroImageDataUri}" alt="Tie-dye pattern" />
+      <p class="hero-title">Patterson Elementary PTA, Tie-Dye Care Guide</p>
+    </section>
+
     <header>
-      <h1>Tie-Dye Care Instructions</h1>
       <p class="subtitle">Please take this home and follow in order.</p>
     </header>
 
@@ -131,6 +174,7 @@ const html = `<!doctype html>
     </section>
 
     <footer class="footer">
+      <p class="crafted">Handcrafted with love. Treat it with care.</p>
       <img class="qr" src="${qrSrc}" alt="QR code to tie-dye instructions website" />
       <p class="link">${websiteUrl}</p>
       <p class="tiny">Scan to view the multilingual online version.</p>
