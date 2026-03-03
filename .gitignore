@@ -1,4 +1,5 @@
 ﻿# Static site project: no framework/build output directories are expected.
+node_modules/
 *.log
 .DS_Store
 Thumbs.db

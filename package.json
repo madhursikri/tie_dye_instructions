@@ -1,0 +1,25 @@
+{
+  "name": "tie_dye_instructions",
+  "version": "1.0.0",
+  "description": "This repository is a plain static website.",
+  "main": "script.js",
+  "scripts": {
+    "generate:pdf": "node tools/generate-printable-pdf.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madhursikri/tie_dye_instructions.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/madhursikri/tie_dye_instructions/issues"
+  },
+  "homepage": "https://github.com/madhursikri/tie_dye_instructions#readme",
+  "devDependencies": {
+    "playwright": "^1.58.2"
+  }
+}

@@ -24,6 +24,20 @@ python -m http.server 8080
 
 Then open `http://localhost:8080`.
 
+## Printable Handout PDF
+
+Generate a one-page printable handout with a QR code:
+
+```bash
+npm install
+npx playwright install chromium
+npm run generate:pdf
+```
+
+Output file:
+
+- `public/print/tie-dye-workshop-handout.pdf`
+
 ## Production Deployment
 
 This project is ready for static hosting (GitHub Pages, Netlify, Vercel static output, S3 + CloudFront, etc.).
