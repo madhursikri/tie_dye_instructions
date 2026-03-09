@@ -118,7 +118,7 @@ const html = `<!doctype html>
     }
     .qr-caption-top {
       margin: 0 0 6px;
-      font-size: 10pt;
+      font-size: 12pt;
       color: #4b5563;
       font-weight: 700;
     }
