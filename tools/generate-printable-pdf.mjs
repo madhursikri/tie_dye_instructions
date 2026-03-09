@@ -108,36 +108,44 @@ const html = `<!doctype html>
     .footer {
       margin-top: auto;
       text-align: center;
-      border-top: 1px dashed #d1d5db;
-      padding-top: 8px;
+      padding-top: 4px;
+      background: linear-gradient(to bottom, #ffffff, #f8fbff);
+      border-radius: 10px;
     }
-    .crafted {
-      margin: 0 0 7px;
-      font-size: 9.8pt;
-      color: #374151;
-      font-style: italic;
+    .qr-block {
+      text-align: center;
+      margin-top: 2px;
+    }
+    .qr-caption-top {
+      margin: 0 0 6px;
+      font-size: 10pt;
+      color: #4b5563;
+      font-weight: 700;
     }
     .qr {
-      width: 1.2in;
-      height: 1.2in;
+      width: 1.55in;
+      height: 1.55in;
       object-fit: contain;
       display: block;
-      margin: 0 auto 5px;
-      border: 1px solid #e5e7eb;
+      margin: 0 auto 6px;
+      border: 2px solid #0f172a;
       border-radius: 6px;
       background: white;
-      padding: 4px;
+      padding: 5px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.18);
     }
     .link {
       margin: 0;
-      font-size: 9pt;
-      color: #1f2937;
+      font-size: 9.2pt;
+      color: #111827;
+      font-weight: 600;
       word-break: break-all;
     }
-    .tiny {
-      margin: 3px 0 0;
-      font-size: 8.6pt;
-      color: #4b5563;
+    .crafted-bottom {
+      margin: 7px 0 0;
+      font-size: 9.8pt;
+      color: #374151;
+      font-style: italic;
     }
   </style>
 </head>
@@ -173,11 +181,14 @@ const html = `<!doctype html>
       </ol>
     </section>
 
-    <footer class="footer">
-      <p class="crafted">Handcrafted with love. Treat it with care.</p>
+    <section class="qr-block">
+      <p class="qr-caption-top">Scan to view the multilingual online version.</p>
       <img class="qr" src="${qrSrc}" alt="QR code to tie-dye instructions website" />
       <p class="link">${websiteUrl}</p>
-      <p class="tiny">Scan to view the multilingual online version.</p>
+      <p class="crafted-bottom">Handcrafted with love. Treat it with care.</p>
+    </section>
+
+    <footer class="footer">
     </footer>
   </main>
 </body>

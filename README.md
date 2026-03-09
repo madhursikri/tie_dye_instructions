@@ -38,6 +38,16 @@ Output file:
 
 - `public/print/tie-dye-workshop-handout.pdf`
 
+Optional custom output path:
+
+```bash
+# Windows PowerShell
+$env:OUTPUT_PATH='public/print/custom-handout.pdf'; npm run generate:pdf
+
+# macOS/Linux
+OUTPUT_PATH=public/print/custom-handout.pdf npm run generate:pdf
+```
+
 ## Production Deployment
 
 This project is ready for static hosting (GitHub Pages, Netlify, Vercel static output, S3 + CloudFront, etc.).
@@ -63,7 +73,9 @@ All language content is in `script.js`, inside `translations`.
    - `languageSelectLabel`
    - `title`
    - `subtitle`
-   - `steps` items (`title`, `desc`)
+   - `instructionSections`:
+     - section `heading`
+     - each `steps` item (`title`, `desc`, `icon`)
    - `footer`
 
 ### Add a new language
