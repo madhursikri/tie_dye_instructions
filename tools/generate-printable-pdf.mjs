@@ -122,6 +122,14 @@ const html = `<!doctype html>
       color: #4b5563;
       font-weight: 700;
     }
+    .qr-caption-top p {
+      margin: 0;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+    .qr-caption-top p + p {
+      margin-top: 2px;
+    }
     .qr {
       width: 1.55in;
       height: 1.55in;
@@ -182,7 +190,12 @@ const html = `<!doctype html>
     </section>
 
     <section class="qr-block">
-      <p class="qr-caption-top">Scan to view the multilingual online version.</p>
+      <div class="qr-caption-top">
+        <p>Scan to view the multilingual online version.</p>
+        <p>Escanea para ver la versión multilingüe en línea.</p>
+        <p>扫码查看多语言在线版本。</p>
+        <p>다국어 온라인 버전을 보려면 스캔하세요.</p>
+      </div>
       <img class="qr" src="${qrSrc}" alt="QR code to tie-dye instructions website" />
       <p class="link">${websiteUrl}</p>
       <p class="crafted-bottom">Handcrafted with love. Treat it with care.</p>
